@@ -1,5 +1,5 @@
 const initialState = {
-  newValue: {
+  graphicData: {
     title: {
       text: "Investimento Tesouro Direto e Bitcoin"
     },
@@ -13,7 +13,7 @@ const initialState = {
       yValueFormatString: "$0.00",
       xValueFormatString: "MMMM YY",
       dataPoints: [],
-    }, {				
+    }, {		
       type: "line",
       yValueFormatString: "$0.00",
       xValueFormatString: "MMMM YY",
@@ -23,11 +23,21 @@ const initialState = {
 };
 
 export const optionsReducer = (state = initialState, action) => {
+  console.log(action.bitcoin, action.treasure, action.type);
   switch (action.type) {
     case 'OPTIONS_UPDATE_VALUE':
       return {
         ...state,
-        newValue: action.newValue
+        graphicData: {
+          ...state.graphicData,
+          data: [{
+            ...state.graphicData.data[0],
+            dataPoints: action.bitcoin,
+          }, {
+            ...state.graphicData.data[1],
+            dataPoints: action.treasure,
+          }]
+        }
       };
     default:
       return state;

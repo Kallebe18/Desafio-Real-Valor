@@ -6,8 +6,6 @@ import { GraphContainer } from './styles';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-// import api from '../../services/api';
-
 const Graphic = ({options}) => {
   return (
     <GraphContainer>
@@ -17,7 +15,7 @@ const Graphic = ({options}) => {
 }
 
 const getOptionsFromStore = store => ({
-  options: store.optionsState.newValue
+  options: store.optionsState.graphicData
 })
 
 export default connect(getOptionsFromStore)(Graphic)
