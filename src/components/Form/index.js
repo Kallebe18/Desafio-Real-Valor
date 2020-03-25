@@ -7,7 +7,7 @@ import api from '../../services/api';
 
 import FormContainer from './styles';
 
-const Form = () => {
+const Form = ({dispatch}) => {
   const [date, setDate] = useState(new Date());
   const [investment, setInvestment] = useState(0);
 
@@ -42,7 +42,7 @@ const Form = () => {
       })
     }
     
-    clickButton(bitcoinInvestment, treasureInvestment)
+    dispatch(clickButton(bitcoinInvestment, treasureInvestment))
   }
 
   return (

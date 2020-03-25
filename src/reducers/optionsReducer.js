@@ -23,7 +23,6 @@ const initialState = {
 };
 
 export const optionsReducer = (state = initialState, action) => {
-  console.log(action.bitcoin, action.treasure, action.type);
   switch (action.type) {
     case 'OPTIONS_UPDATE_VALUE':
       return {
