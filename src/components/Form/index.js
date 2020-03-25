@@ -28,17 +28,19 @@ const Form = ({dispatch}) => {
     let initialHigh = res[0].high;
     // let initialLow = res[0].low;
     for(let i=0; i<res.length; i++) {
-      let percentageHigh = initialHigh / res[i].high;
+      let percentageHigh = (res[i].high - initialHigh)/initialHigh;
       // let percentageLow =  initialLow / res[i].low;
       let actualDay = new Date(res[i].time*1000);
       bitcoinInvestment.push({
         x: actualDay,
-        y: investment*percentageHigh,
+        y: investment+(investment*percentageHigh),
       })
 
+      let increase = (((investment/100)*10)/365)*(i+1);
+      console.log(increase)
       treasureInvestment.push({
         x: actualDay,
-        y: investment+(((100/investment)*10)/365)*(i+1)
+        y: investment+increase
       })
     }
     
