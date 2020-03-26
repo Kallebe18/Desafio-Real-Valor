@@ -8,7 +8,7 @@ import api from '../../services/api';
 import FormContainer from './styles';
 
 const Form = ({dispatch}) => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(0);
   const [investment, setInvestment] = useState(0);
 
   const dateChange = e => setDate(new Date(e.currentTarget.value));
@@ -17,10 +17,25 @@ const Form = ({dispatch}) => {
   const handleInvestment = async e => {
     e.preventDefault();
 
+    function isValidDate(d) {
+      return d instanceof Date && !isNaN(d);
+    }
+    
+    if(!isValidDate(date)) {
+      alert('Preencha a data em que o investimento foi realizado.')
+      return;
+    }
+
+    if(!investment || investment <= 0 || typeof(investment) !== 'number') {
+      alert('Preencha o campo de investimentos corretamente')
+      return;
+    }
+
     let bitcoinInvestment = [];
     let treasureInvestment = [];
 
     let now = new Date();
+
     let day = 1000*60*60*24;
     let diffDays = Math.floor((now.getTime() - date.getTime())/day);
     let res = await api.get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=BRL&limit=${diffDays}`)
@@ -37,7 +52,6 @@ const Form = ({dispatch}) => {
       })
 
       let increase = (((investment/100)*10)/365)*(i+1);
-      console.log(increase)
       treasureInvestment.push({
         x: actualDay,
         y: investment+increase
@@ -50,9 +64,17 @@ const Form = ({dispatch}) => {
   return (
     <FormContainer>
       <label htmlFor="investmentDate">Anos de investimento</label>
-      <input type="date" name="investmentDate" id="date" onChange={dateChange}/>
+      <input 
+        type="date" name="investmentDate"
+        data-date=""
+        data-date-format="DD MMMM YYYY"
+        id="date" onChange={dateChange}
+        min={`${new Date().getFullYear()-2}-01-01`}
+        max={`${new Date(new Date() - 1000*60*60*24).toISOString().split("T")[0]}`}
+        onKeyDown={(e) => e.preventDefault()}
+      />
       <label htmlFor="investment">Investimento feito</label>
-      <input type="text" onChange={investmentChange}/>
+      <input type="number" onChange={investmentChange}/>
       <input type="submit" value="Verificar" onClick={handleInvestment}/>
     </FormContainer>
   );
