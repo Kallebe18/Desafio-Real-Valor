@@ -17,7 +17,8 @@ const initialState = {
       xValueFormatString: "DD MMMM YY",
       dataPoints: [],
     }]
-  }
+  }, 
+  loading: false,
 };
 
 export const optionsReducer = (state = initialState, action) => {
@@ -36,6 +37,11 @@ export const optionsReducer = (state = initialState, action) => {
           }]
         }
       };
+    case 'OPTIONS_LOADING_STATE':
+      return {
+        ...state,
+        loading: action.loadingState
+      }
     default:
       return state;
   }

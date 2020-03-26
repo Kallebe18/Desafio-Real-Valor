@@ -5,3 +5,10 @@ export const clickButton = (bitcoin, treasure) => {
     treasure
   })
 }
+
+export const changeLoading = (loadingState) => {
+  return ({
+    type: 'OPTIONS_LOADING_STATE',
+    loadingState,
+  })
+}

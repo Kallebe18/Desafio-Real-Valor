@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { clickButton } from '../../actions';
+import { changeLoading } from '../../actions';
 
 import api from '../../services/api';
 
@@ -31,6 +32,8 @@ const Form = ({dispatch}) => {
       return;
     }
 
+    dispatch(changeLoading(true));
+
     let bitcoinInvestment = [];
     let treasureInvestment = [];
 
@@ -57,7 +60,8 @@ const Form = ({dispatch}) => {
         y: investment+increase
       })
     }
-    
+
+    dispatch(changeLoading(false));
     dispatch(clickButton(bitcoinInvestment, treasureInvestment))
   }
 
@@ -80,6 +84,6 @@ const Form = ({dispatch}) => {
   );
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ clickButton }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ clickButton, changeLoading }, dispatch);
 
 export default connect(mapDispatchToProps)(Form);
