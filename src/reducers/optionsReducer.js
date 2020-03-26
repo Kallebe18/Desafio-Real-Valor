@@ -1,22 +1,20 @@
 const initialState = {
   graphicData: {
-    title: {
-      text: "Investimento Tesouro Direto e Bitcoin"
-    },
+    zoomEnabled: true,
     axisY: {
       includeZero: true,
       minimum: 0,
       prefix: "$"
     },
-    data: [{				
+    data: [{
       type: "line",
       yValueFormatString: "$0.00",
-      xValueFormatString: "MMMM YY",
+      xValueFormatString: "DD MMMM YY",
       dataPoints: [],
-    }, {		
+    }, {
       type: "line",
       yValueFormatString: "$0.00",
-      xValueFormatString: "MMMM YY",
+      xValueFormatString: "DD MMMM YY",
       dataPoints: [],
     }]
   }
