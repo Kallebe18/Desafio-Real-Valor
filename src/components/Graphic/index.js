@@ -11,7 +11,9 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Graphic = ({options, loading}) => {
   return (
     <GraphContainer>
-      { loading ? <ClipLoader/> :
+      { loading ? 
+        <ClipLoader/>
+        :
         <CanvasJSChart options={options}/>
       }
     </GraphContainer>
