@@ -5,7 +5,12 @@ export const GraphContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px; 
-  padding: 50px 40px;
-  height: 600px;
+  margin: 10px; 
+  height: 400px;
+
+  @media(max-width: 600px) {
+    padding: 0;
+    margin: 10px 0;
+    height: 350px;
+  }
 `

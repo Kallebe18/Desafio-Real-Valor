@@ -1,6 +1,7 @@
 const initialState = {
   graphicData: {
     zoomEnabled: true,
+    height: 350,
     axisY: {
       includeZero: true,
       minimum: 0,

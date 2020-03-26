@@ -31,6 +31,10 @@ const FormContainer = styled.form`
 
     transition: all 1s;
   }
+
+  @media(max-width: 400px) {
+    width: 300px;
+  }
 `
 
 export default FormContainer;
