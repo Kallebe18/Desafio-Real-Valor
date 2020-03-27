@@ -2,6 +2,9 @@ const initialState = {
   graphicData: {
     zoomEnabled: true,
     height: 350,
+    legend: {
+      fontSize: 18,
+    },
     axisY: {
       includeZero: true,
       minimum: 0,
@@ -9,11 +12,15 @@ const initialState = {
     },
     data: [{
       type: "line",
+      showInLegend: true,
+      legendText: "Bitcoin",
       yValueFormatString: "$0.00",
       xValueFormatString: "DD MMMM YY",
       dataPoints: [],
     }, {
       type: "line",
+      showInLegend: true,
+      legendText: "Tesouro Direto",
       yValueFormatString: "$0.00",
       xValueFormatString: "DD MMMM YY",
       dataPoints: [],
