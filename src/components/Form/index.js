@@ -12,11 +12,13 @@ const Form = ({dispatch}) => {
   const [date, setDate] = useState(0);
   const [investment, setInvestment] = useState(0);
 
-  const dateChange = e => setDate(new Date(e.currentTarget.value));
+  const dateChange = e => setDate(new Date(e.currentTarget.value.replace('-','/')));
+  
   const investmentChange = e => setInvestment(parseInt(e.currentTarget.value));
 
   const handleInvestment = async e => {
     e.preventDefault();
+    console.log(date)
 
     function isValidDate(d) {
       return d instanceof Date && !isNaN(d);
@@ -46,7 +48,7 @@ const Form = ({dispatch}) => {
     res = res.data.Data.Data;
     let initialHigh = res[0].high;
     let initialLow = res[0].low;
-    for(let i=0; i<res.length; i++) {
+    for(let i=1; i<res.length; i++) {
       let percentageHigh = (res[i].high - initialHigh)/initialHigh;
       let percentageLow =  (res[i].low - initialLow)/initialLow;
       let high = investment+(investment*percentageHigh);
@@ -62,16 +64,20 @@ const Form = ({dispatch}) => {
         x: actualDay,
         y: high,
         low,
-        rentMediaBitcoin
+        rentMediaBitcoin,
+        investment,
+        date
       })
 
-      let increase = (((investment/100)*10)/365)*(i+1);
+      let increase = (((investment/100)*10)/365)*(i);
       let rentTesouro = increase/investment*100;
       treasureInvestment.push({
         name: 'Tesouro Direto',
         x: actualDay,
         y: investment+increase,
         rentTesouro,
+        investment,
+        date
       })
     }
 
@@ -84,14 +90,13 @@ const Form = ({dispatch}) => {
       <label htmlFor="investmentDate">Data de investimento</label>
       <input 
         type="date" name="investmentDate"
-        data-date=""
-        data-date-format="DD MMMM YYYY"
         id="date" onChange={dateChange}
         min={`${new Date().getFullYear()-2}-01-01`}
-        max={`${new Date(new Date() - 1000*60*60*24).toISOString().split("T")[0]}`}
+        max={`${new Date(new Date()-1000*60*60*24).toLocaleDateString('pt-BR').split('/').reverse().join('-')}`}
         onKeyDown={(e) => e.preventDefault()}
+        required
       />
-      <label htmlFor="investment">Investimento feito</label>
+      <label htmlFor="investment" required>Investimento feito</label>
       <input type="number" onChange={investmentChange}/>
       <input type="submit" value="Verificar" onClick={handleInvestment}/>
     </FormContainer>

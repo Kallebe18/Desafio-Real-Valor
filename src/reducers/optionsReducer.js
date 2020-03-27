@@ -14,12 +14,13 @@ const initialState = {
     toolTip: {
       animationEnabled: true,
       contentFormatter: e => {
-        let {name, y, low, x, rentMediaBitcoin, rentTesouro} = e.entries[0].dataPoint;
-        let date = x.toLocaleDateString('en-US');
+        let {name, y, low, x, rentMediaBitcoin, rentTesouro, investment, date} = e.entries[0].dataPoint;
+        let day = x.toLocaleDateString('pt-BR');
+        let firstDay = date.toLocaleDateString('pt-BR')
         if(name === "Tesouro Direto") {
-          return `<h3>${name} ${date}</h3><hr><h4 style="color:#192">R$ ${y.toFixed(2)}</h4><h4>Rentabilidade: ${rentTesouro.toFixed(2)}%</h4>`
+          return `<h3>Valor inicial ${firstDay}</h3><h3>R$ ${investment}<h3><hr/><h3>${name} ${day}</h3><h4 style="color:#192">R$ ${y.toFixed(2)}</h4><h4>Rentabilidade: ${rentTesouro.toFixed(2)}%</h4>`
         } else {
-          return `<h3>${name} ${date}</h3><hr><h4 style="color:#823">Baixa: R$ ${low.toFixed(2)}</h4><h4 style="color:#319">Alta: R$ ${y.toFixed(2)}</h4><h4>Rentabilidade Média: ${rentMediaBitcoin.toFixed(2)}%</h4>`
+          return `<h3>Valor inicial ${firstDay}</h3><h3>R$ ${investment}<h3><hr/><h3>${name} ${day}</h3><h4 style="color:#823">Baixa: R$ ${low.toFixed(2)}</h4><h4 style="color:#319">Alta: R$ ${y.toFixed(2)}</h4><h4>Rentabilidade Média: ${rentMediaBitcoin.toFixed(2)}%</h4>`
         }
       }
     },
