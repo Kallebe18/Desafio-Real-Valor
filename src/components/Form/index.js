@@ -45,20 +45,33 @@ const Form = ({dispatch}) => {
     let res = await api.get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=BRL&limit=${diffDays}`)
     res = res.data.Data.Data;
     let initialHigh = res[0].high;
-    // let initialLow = res[0].low;
+    let initialLow = res[0].low;
     for(let i=0; i<res.length; i++) {
       let percentageHigh = (res[i].high - initialHigh)/initialHigh;
-      // let percentageLow =  initialLow / res[i].low;
+      let percentageLow =  (res[i].low - initialLow)/initialLow;
+      let high = investment+(investment*percentageHigh);
+      let low = investment+(investment*percentageLow);
+      if(low > high) {
+        let temp = low; low = high; high = temp;
+      }
+
+      let rentMediaBitcoin = -1*((investment - (low+high)/2)/investment)*100; // rentabilidade
       let actualDay = new Date(res[i].time*1000);
       bitcoinInvestment.push({
+        name: 'Bitcoin',
         x: actualDay,
-        y: investment+(investment*percentageHigh),
+        y: high,
+        low,
+        rentMediaBitcoin
       })
 
       let increase = (((investment/100)*10)/365)*(i+1);
+      let rentTesouro = increase/investment*100;
       treasureInvestment.push({
+        name: 'Tesouro Direto',
         x: actualDay,
-        y: investment+increase
+        y: investment+increase,
+        rentTesouro,
       })
     }
 
@@ -68,7 +81,7 @@ const Form = ({dispatch}) => {
 
   return (
     <FormContainer>
-      <label htmlFor="investmentDate">Anos de investimento</label>
+      <label htmlFor="investmentDate">Data de investimento</label>
       <input 
         type="date" name="investmentDate"
         data-date=""
