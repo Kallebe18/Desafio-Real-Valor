@@ -44,7 +44,7 @@ const Form = ({dispatch}) => {
 
     let day = 1000*60*60*24;
     let diffDays = Math.floor((now.getTime() - date.getTime())/day);
-    let res = await api.get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=BRL&limit=${diffDays}`)
+    let res = await api.get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=BRL&limit=${diffDays}&api_key=6b0eb089a222906a1767e9d8210131937499208d1cd4d6504921a31af6f1ee80`)
     res = res.data.Data.Data;
     let initialHigh = res[0].high;
     let initialLow = res[0].low;
