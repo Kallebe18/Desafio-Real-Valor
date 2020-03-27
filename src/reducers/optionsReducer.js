@@ -14,11 +14,8 @@ const initialState = {
     toolTip: {
       animationEnabled: true,
       contentFormatter: e => {
-        console.log(e)
         let {name, y, low, x, rentMediaBitcoin, rentTesouro} = e.entries[0].dataPoint;
-        console.log(rentMediaBitcoin, rentTesouro)
         let date = x.toLocaleDateString('en-US');
-        date = date.slice(0, date.length-2);
         if(name === "Tesouro Direto") {
           return `<h3>${name} ${date}</h3><hr><h4 style="color:#192">R$ ${y.toFixed(2)}</h4><h4>Rentabilidade: ${rentTesouro.toFixed(2)}%</h4>`
         } else {
